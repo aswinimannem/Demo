@@ -1,0 +1,15 @@
+.mat-tree-node {
+    min-height: 30px;
+}
+.child-node{
+    padding-left: 10px;
+    label{
+        cursor: pointer;
+    }
+}
+.parent-node{
+    font-weight: bold;
+}
+.selected{
+    color:blue;
+}

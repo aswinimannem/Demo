@@ -1,0 +1,58 @@
+<div class="search-section"> 
+  <mat-accordion class="accordion-section">
+    <mat-expansion-panel hideToggle [expanded]="true">
+      <mat-expansion-panel-header #panelH (click)="panelH._toggle()">
+        <mat-panel-title>
+          <div (click)="panelH._toggle()">
+            <i class="material-icons-outlined accordion-icon close">indeterminate_check_box </i>
+            <i class="material-icons-outlined accordion-icon open">check_box_outline_blank </i>
+          </div>
+        </mat-panel-title>
+        <mat-panel-description>
+  
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+  
+      <div class="advance-filter-section">
+          <div class="search-filters">
+            <app-tree [isOpen]="true" [showToggle]="false" [dataSource]="dataSource" (onSelectNode)="nodeSelection($event)"></app-tree>
+          </div>
+          <div class="search-criteria">
+            <div *ngIf="selectedTreeNode?.nodeId === 'companyName'">
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Placeholder" [(ngModel)]="searchKey">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+              <div class="search-options">
+                <p>Company must include” company name” keyword 
+                  <mat-icon aria-hidden="false" aria-label="add" (click)="addFilter('include')">add</mat-icon>
+                </p>
+                <p>Company must not include “company name” Keyword 
+                  <mat-icon aria-hidden="false" aria-label="add" (click)="addFilter('exclude')">add</mat-icon>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="selected-filters">
+            <ng-container>
+              <div *ngFor="let item of selectedFilters | keyvalue">
+                <p class="filter-name">{{item.key}} <mat-icon aria-hidden="false" aria-label="add">close</mat-icon></p>
+                <pre>{{item.value}}</pre>
+                <ng-container *ngIf="item.value">
+                  <mat-chip-list aria-label="Fish selection" class="filter-chips">
+                    <mat-chip color="accent" *ngFor="let filter of selectedFilters[item.key]"> <span>{{filter.filterType === 'include' ? '+':'-'}}</span> {{filter.searchKey}} 
+                      <button matChipRemove>
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </mat-chip>
+                  </mat-chip-list>
+                </ng-container>
+               
+              </div>
+            </ng-container>
+            
+          </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
